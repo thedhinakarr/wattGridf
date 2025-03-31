@@ -1,5 +1,9 @@
 # Explainable Spatial-Temporal Forecasting of Electricity Prices with Dynamic Graph Learning
 
+## Project Overview
+
+This repository implements a hybrid spatial-temporal forecasting model for electricity price prediction in the New Zealand market. The model integrates Temporal Fusion Transformers (TFT) with Graph Attention Networks (GAT) to capture complex temporal patterns and spatial dependencies between Points of Connection (POCs) without requiring explicit grid topology information.
+
 ## Repository Structure
 
 ```
@@ -30,45 +34,55 @@ wattGrid/
 │   │   └── tft_model_1M.pth    # Trained TFT model (1M samples)
 │   └── plots/                  # Generated visualizations
 ├── src/                        # Source code
-├── README.txt                  # This file
+│   ├── data/                   # Data processing scripts
+│   │   ├── make_dataset.py     # Dataset creation
+│   │   └── preprocess.py       # Preprocessing utilities
+│   └── features/               # Feature engineering
+│       ├── __init__.py         # Package initialization
+│       └── build_features.py   # Feature creation utilities
+├── README.md                   # This file
 └── requirements.txt            # Python dependencies
 ```
 
-## Local Setup Instructions
+## Google Colab Implementation
 
-### Environment Setup
+This project is implemented using Google Colab notebooks. Access the notebooks through these direct links:
 
-1. Clone or download this repository to your local machine
+- **Exploratory Data Analysis**:
+  - [1_eda.ipynb](https://colab.research.google.com/drive/1id5WP6gZgAipPrvEMaQow_sXiSnFXKXw)
+  - Direct URL: https://colab.research.google.com/drive/1id5WP6gZgAipPrvEMaQow_sXiSnFXKXw
 
-2. Create a Python virtual environment (Python 3.8+ recommended):
-   ```bash
-   # Using venv
-   python -m venv env
+- **Data Preprocessing**:
+  - [2_preprocessing.ipynb](https://colab.research.google.com/drive/1tWlCnCovujRVCOLGuitaiwzocoNu4Hrk)
+  - Direct URL: https://colab.research.google.com/drive/1tWlCnCovujRVCOLGuitaiwzocoNu4Hrk
 
-   # Activate on Windows
-   env\Scripts\activate
+- **Dynamic Time Warping**:
+  - [3_dtw.ipynb](https://colab.research.google.com/drive/10_jVLxxvGZsvY9K3R0dO__DMS7paus_N)
+  - Direct URL: https://colab.research.google.com/drive/10_jVLxxvGZsvY9K3R0dO__DMS7paus_N
 
-   # Activate on macOS/Linux
-   source env/bin/activate
-   ```
+- **Temporal Fusion Transformer**:
+  - [4_tft.ipynb](https://colab.research.google.com/drive/1g3zcN_hJ1NHwiVYTZIB_LB41Pw65tzkb)
+  - Direct URL: https://colab.research.google.com/drive/1g3zcN_hJ1NHwiVYTZIB_LB41Pw65tzkb
 
-3. Install required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+- **Graph Attention Network**:
+  - [5_gat.ipynb](https://colab.research.google.com/drive/1YLn2KRSFi3wNwIJcoVFwl_n2ZUsXmVdK)
+  - Direct URL: https://colab.research.google.com/drive/1YLn2KRSFi3wNwIJcoVFwl_n2ZUsXmVdK
 
-### Data Preparation
+- **Hybrid Model**:
+  - [6_hybrid.ipynb](https://colab.research.google.com/drive/1YuoDryvxMACkR5TMPfb1CMwSbx8V6jDx)
+  - Direct URL: https://colab.research.google.com/drive/1YuoDryvxMACkR5TMPfb1CMwSbx8V6jDx
 
-1. Create the necessary directory structure if it doesn't exist:
-   ```bash
-   mkdir -p data/raw data/processed results/plots results/models
-   ```
+## Data Access
 
-2. Place the raw electricity price data files in the `data/raw/` directory
+**Important**: Some files in this project exceed GitHub's file size limits and could not be uploaded to the repository:
+- `data/processed/cleaned_data.csv` (~100 MB)
+- `data/processed/featured_data.csv` (~1.6 GB)
 
-3. Run the notebooks in sequence (see Running the Code section below)
+Access the complete dataset and processed files via this Google Drive link:
 
-## Google Colab Setup Instructions
+[https://drive.google.com/drive/folders/1GgSX5nYtxqsZ4l_VwCbjYTzLSmbDSUD1?usp=sharing](https://drive.google.com/drive/folders/1GgSX5nYtxqsZ4l_VwCbjYTzLSmbDSUD1?usp=sharing)
+
+## Setup Instructions
 
 ### Google Drive Setup
 
@@ -79,49 +93,16 @@ wattGrid/
        ├── data/
        │   ├── raw/             # For raw electricity price data
        │   └── processed/       # For processed datasets
-       ├── notebooks/           # Optional: copies of the notebooks
        └── results/
            ├── models/          # For saved model files
            └── plots/           # For visualizations
    ```
 
-2. Upload the raw electricity price data to the `WattGrid/data/raw/` directory in your Google Drive
+2. Download the data files from the Google Drive link above and place them in the appropriate directories
 
-### Accessing Notebooks
+### Running Notebooks in Google Colab
 
-Access the notebooks directly through these Google Colab links:
-
-- **Exploratory Data Analysis**: [1_eda.ipynb](https://colab.research.google.com/drive/1id5WP6gZgAipPrvEMaQow_sXiSnFXKXw)
-- **Data Preprocessing**: [2_preprocessing.ipynb](https://colab.research.google.com/drive/1tWlCnCovujRVCOLGuitaiwzocoNu4Hrk)
-- **Dynamic Time Warping**: [3_dtw.ipynb](https://colab.research.google.com/drive/10_jVLxxvGZsvY9K3R0dO__DMS7paus_N)
-- **Temporal Fusion Transformer**: [4_tft.ipynb](https://colab.research.google.com/drive/1g3zcN_hJ1NHwiVYTZIB_LB41Pw65tzkb)
-- **Graph Attention Network**: [5_gat.ipynb](https://colab.research.google.com/drive/1YLn2KRSFi3wNwIJcoVFwl_n2ZUsXmVdK)
-- **Hybrid Model**: [6_hybrid.ipynb](https://colab.research.google.com/drive/1YuoDryvxMACkR5TMPfb1CMwSbx8V6jDx)
-
-## Running the Code
-
-### Local Execution
-
-1. Start Jupyter Lab or Jupyter Notebook:
-   ```bash
-   jupyter lab
-   # or
-   jupyter notebook
-   ```
-
-2. Navigate to the notebooks directory and run each notebook in sequence:
-   - `1_eda.ipynb`: Exploratory Data Analysis
-   - `2_preprocessing.ipynb`: Data Preprocessing
-   - `3_dtw.ipynb`: Dynamic Time Warping
-   - `4_tft.ipynb`: TFT Model
-   - `5_gat.ipynb`: GAT Model
-   - `6_hybrid.ipynb`: Hybrid Model
-
-3. Each notebook includes detailed instructions and comments explaining each step
-
-### Google Colab Execution
-
-1. Open each notebook using the links provided above
+1. Open each notebook using the provided Google Colab links
 
 2. Set up the runtime environment:
    - Select Runtime > Change runtime type > Hardware accelerator: GPU
@@ -134,59 +115,73 @@ Access the notebooks directly through these Google Colab links:
 
 4. Execute each notebook in sequence, following the instructions within
 
-5. For long-running notebooks (4, 5, and 6), enable notifications:
-   - Settings > Miscellaneous > Receive notification when execution completes
+## Execution Pipeline
 
-## Data Pipeline
-
-The execution pipeline follows this sequence:
+The implementation follows this sequential workflow:
 
 1. **Data Exploration** (`1_eda.ipynb`)
    - Analyzes and visualizes raw electricity price data
-   - Output: Visualizations in `results/plots/`
+   - Output: Visualizations of price distributions, temporal patterns, and POC characteristics
 
 2. **Data Preprocessing** (`2_preprocessing.ipynb`)
-   - Cleans data and creates features
+   - Cleans data and creates features including rolling statistics and lag variables
    - Output: `data/processed/cleaned_data.csv`, `data/processed/featured_data.csv`
 
 3. **DTW Computation** (`3_dtw.ipynb`)
-   - Computes spatial relationships between POCs
+   - Computes pairwise DTW distances between POCs to infer spatial relationships
    - Output: `data/processed/dtw_adjacency_matrix.csv`, `data/processed/dtw_adjacency2_matrix.csv`
 
 4. **TFT Model** (`4_tft.ipynb`)
-   - Implements and trains Temporal Fusion Transformer
+   - Implements and trains Temporal Fusion Transformer for time series forecasting
    - Output: `results/models/tft_model_1M.pth`
 
 5. **GAT Model** (`5_gat.ipynb`)
-   - Implements and trains Graph Attention Network
+   - Implements and trains Graph Attention Network using DTW-derived adjacency matrix
    - Output: GAT model weights, evaluation metrics
 
 6. **Hybrid Model** (`6_hybrid.ipynb`)
-   - Combines TFT and GAT models
-   - Output: Hybrid model, evaluation metrics, visualizations
+   - Integrates TFT and GAT into a unified architecture
+   - Output: Hybrid model weights, evaluation metrics, visualizations
+
+## Google Colab Execution Notes
+
+1. **Long-running operations**:
+   - Enable "Settings > Miscellaneous > Receive notification when execution completes"
+   - For notebooks that take several hours (TFT, GAT, Hybrid), using Colab Pro may prevent timeouts
+
+2. **Memory management**:
+   - Use appropriate sample sizes based on available memory
+   - The code includes parameters to adjust sample size (e.g., `sample_size=1000000` in some notebooks)
+   - Clear output and restart runtime if memory issues occur
+
+3. **GPU acceleration**:
+   - Always use GPU runtime for model training
+   - Check GPU allocation with `!nvidia-smi` at the beginning of each notebook
+
+## Hardware Requirements (Google Colab)
+
+- Free tier: Suitable for data exploration and preprocessing (Notebooks 1-3)
+- Colab Pro recommended for full model training (Notebooks 4-6):
+  - Higher memory allocation (25GB+ RAM)
+  - Longer runtime limits
+  - Priority access to better GPUs (T4/P100)
 
 ## Troubleshooting
 
-### Common Local Issues
+- **Session Disconnects**: For long-running cells, enable notifications or use Colab Pro
+- **Memory Issues**: Reduce `sample_size` parameters in the code if encountering memory limitations
+- **GPU Unavailability**: The code can run on CPU but will be significantly slower; adjust batch sizes accordingly
+- **Drive Mount Failures**: Re-authenticate and check folder paths
+- **Package Version Conflicts**: Restart runtime after installing packages
 
-- **Package Installation Errors**: Ensure you're using Python 3.8+ and try installing packages individually
-- **Memory Issues**: Reduce batch sizes or sample sizes in the code
-- **GPU Support**: Check PyTorch installation matches your CUDA version
+## Local Setup (Alternative)
 
-### Common Google Colab Issues
+For local execution:
 
-- **Session Disconnects**: For long-running cells, use smaller data samples or Colab Pro
-- **Memory Errors**: Restart runtime and reduce batch/sample sizes
-- **Google Drive Mount Failures**: Re-authenticate and check folder paths
-- **Package Version Conflicts**: Clear output and restart runtime after installing packages
+1. Clone this repository
+2. Download data from the Google Drive link
+3. Create a Python environment: `python -m venv env`
+4. Activate the environment and install dependencies: `pip install -r requirements.txt`
+5. Run notebooks locally using Jupyter: `jupyter notebook`
 
-## Hardware Requirements
-
-### Local Machine
-- 16GB+ RAM recommended
-- CUDA-compatible GPU highly recommended
-- ~5GB free disk space
-
-### Google Colab
-- Free tier: Sufficient for notebooks 1-3
-- Colab Pro recommended for notebooks 4-6 (TFT, GAT, Hybrid models)
+Note that local execution requires sufficient computational resources, particularly for the model training notebooks.
